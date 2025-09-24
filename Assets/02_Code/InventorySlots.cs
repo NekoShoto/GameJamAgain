@@ -38,3 +38,4 @@ public class InventorySlots : MonoBehaviour, IDropHandler
         }
     }
 }
+

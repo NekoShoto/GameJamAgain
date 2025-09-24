@@ -18,11 +18,12 @@ public class InventoryGridManager : MonoBehaviour
         return slotSize;
     }
 
+
     // check if item can be placed at the grid position
     public bool CanPlaceItem(int itemWidth, int itemHeight, int startX, int startY)
     {
+        Debug.Log($"{startX},{itemWidth},{startY},{itemHeight}");
         if (startX + itemWidth > gridWidth || startY + itemHeight > gridHeight) return false;
-
         for (int x = 0; x < itemWidth; x++)
         {
             for (int y = 0; y < itemHeight; y++)
