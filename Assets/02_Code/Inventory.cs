@@ -1,34 +1,56 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Inventory : MonoBehaviour, IPointerDownHandler ,IDragHandler,  IBeginDragHandler , IEndDragHandler
+public class Inventory : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    [SerializeField] private Canvas canvas;
+
+    public int itemWidth = 2;  // woth of item
+    public int itemHeight = 1; // height of item
+
+    // grid coordinates where the item currently resides (-1 is not placed)
+    public int gridX = -1;
+    public int gridY = -1;
+
+    private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
+
+    InventoryGridManager gridManager;
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        canvasGroup = GetComponent<CanvasGroup>();
+        gridManager = FindObjectOfType<InventoryGridManager>();
     }
 
-    public void OnBeginDrag(PointerEventData eventData) //it tells unity u started draggin
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("OnBeginDrag");
+        canvasGroup.alpha = 0.6f;
+        canvasGroup.blocksRaycasts = false;
+        gridManager.RemoveItem(this);
     }
 
-    public void OnDrag(PointerEventData eventData) //It tells unit u are dragging
+    public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("OnDrag");
-        rectTransform.anchoredPosition += eventData.delta;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
 
-    public void OnEndDrag(PointerEventData eventData) //it tells unity u ended dragging
+    public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("OnEndDrag");
+        canvasGroup.alpha = 1f;
+        canvasGroup.blocksRaycasts = true;
     }
 
-    public void OnPointerDown(PointerEventData eventData) // it tells unity u can drag
+    public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown");
+        // logic before starting drag idk what to place here
+    }
+
+    // Resize and reposition the rect transform to cover multiple slots not sure i like it but the video use it still gonna change it
+    public void SetPositionAndSize(Vector2 anchoredPos, Vector2 slotSize)
+    {
+        rectTransform.anchoredPosition = anchoredPos;
+        rectTransform.sizeDelta = new Vector2(slotSize.x * itemWidth, slotSize.y * itemHeight);
     }
 }
-
