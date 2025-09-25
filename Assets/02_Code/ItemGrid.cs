@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
@@ -13,15 +14,11 @@ public class ItemGrid : MonoBehaviour
     [SerializeField] int gridSizeWidth = 20;
     [SerializeField] int gridSizeHeight = 10;
 
-    [SerializeField] GameObject inventoryItemPrefab;
 
     public void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         Init(gridSizeWidth, gridSizeHeight);
-
-        InventoryItem inventoryItem = Instantiate(inventoryItemPrefab).GetComponent<InventoryItem>();
-        PlaceItem(inventoryItem, 3, 2);
     }
 
     private void Init(int width, int height)
@@ -48,6 +45,8 @@ public class ItemGrid : MonoBehaviour
     {
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(this.rectTransform);
+        posY = Mathf.Abs(posY);
+        Debug.Log("Pick up item at: " + posX + ", " + posY);
         inventoryItemSlot[posX, posY] = inventoryItem;
 
         Vector2 position = new Vector2();
@@ -59,12 +58,14 @@ public class ItemGrid : MonoBehaviour
 
     public InventoryItem PickUpItem(int x, int y)
     {
+        y = Mathf.Abs(y);
         Debug.Log("Pick up item at: " + x + ", " + y);
         if (x < 0 || x >= gridSizeWidth || y < 0 || y >= gridSizeHeight)
             return null;
-
+        Debug.Log("picsjagsgsdgs");
         InventoryItem toReturn = inventoryItemSlot[x, y];
         inventoryItemSlot[x, y] = null;
         return toReturn;
+
     }
 }

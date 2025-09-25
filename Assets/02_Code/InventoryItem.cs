@@ -1,7 +1,14 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryItem : MonoBehaviour
 {
-    public int sizeWidth = 1;
-    public int sizeHeight = 1;
+    public ItemData itemData;
+
+    internal void Set(ItemData itemData)
+    {
+        this.itemData = itemData;
+
+        GetComponent<Image>().sprite = itemData.itemIcon;
+    }
 }
