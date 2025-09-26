@@ -72,8 +72,8 @@ public class InventoryController : MonoBehaviour
             selectedItem = null;
             if(overlapItem != null)
             {
-                selectedItem = overlapItem;
-                rectTransform = selectedItem.GetComponent<RectTransform>();
+                //selectedItem = overlapItem;
+                //rectTransform = selectedItem.GetComponent<RectTransform>();
                 overlapItem = null;
             }
         }   
@@ -81,6 +81,7 @@ public class InventoryController : MonoBehaviour
 
     private void PickUpItem(Vector2Int tileGridPosition)
     {
+        Debug.Log("im picking u up");
         //pickupItem
         selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
         if (selectedItem != null)
