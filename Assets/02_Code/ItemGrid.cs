@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
 {
-    const float tileSizeWidth = 32;
-    const float tileSizeHeight = 32;
+    public const float tileSizeWidth = 32;
+    public const float tileSizeHeight = 32;
 
     InventoryItem[,] inventoryItemSlot;
 
@@ -41,19 +41,67 @@ public class ItemGrid : MonoBehaviour
         return tileGridPosition;
     }
 
-    public void PlaceItem(InventoryItem inventoryItem, int posX, int posY)
+    public bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, ref InventoryItem overlapItem)
     {
+        /*if (BoundaryCheck(posX, posY, inventoryItem.itemData.width, inventoryItem.itemData.height) == false)
+        {
+            Debug.Log("Item is out of bounds");
+            return;
+        }*/
+
+        if (OverlapCheck(posX, posY, inventoryItem.itemData.width, inventoryItem.itemData.height, ref overlapItem) == false)
+        {
+            overlapItem = null;
+            return false;
+        }
+
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(this.rectTransform);
         posY = Mathf.Abs(posY);
         Debug.Log("Pick up item at: " + posX + ", " + posY);
-        inventoryItemSlot[posX, posY] = inventoryItem;
+
+        for (int x = 0; x < inventoryItem.itemData.width; x++)
+        {
+            for (int y = 0; y < inventoryItem.itemData.height; y++)
+            {
+                inventoryItemSlot[posX + x, posY + y] = inventoryItem;
+            }
+        }
+        inventoryItem.onGridPosX = posX;
+        inventoryItem.onGridPosY = posY;
 
         Vector2 position = new Vector2();
-        position.x = posX * tileSizeWidth + tileSizeWidth / 2;
-        position.y = -(posY * tileSizeHeight + tileSizeHeight / 2);
+        position.x = posX * tileSizeWidth + tileSizeWidth * inventoryItem.itemData.width / 2;
+        position.y = -(posY * tileSizeHeight + tileSizeHeight * inventoryItem.itemData.height / 2);
 
         rectTransform.localPosition = position;
+
+        // Ensure all code paths return a value
+        return true;
+    }
+
+    private bool OverlapCheck(int posX, int posY, int width, int height, ref InventoryItem overlapItem)
+    {
+        for(int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                if (inventoryItemSlot[posX + x, posY + y] != null)
+                {
+                    if(overlapItem == null)
+                    {
+                        overlapItem = inventoryItemSlot[posX + x, posY + y];
+                    }
+                    else if (overlapItem != inventoryItemSlot[posX + x, posY + y])
+                    {
+                        // More than one item is overlapping
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     public InventoryItem PickUpItem(int x, int y)
@@ -64,8 +112,55 @@ public class ItemGrid : MonoBehaviour
             return null;
         Debug.Log("picsjagsgsdgs");
         InventoryItem toReturn = inventoryItemSlot[x, y];
-        inventoryItemSlot[x, y] = null;
+
+        if (toReturn == null) { return null; }
+
+
+        for (int ix = 0; ix < toReturn.itemData.width; ix++)
+        {
+            for (int iy = 0; iy < toReturn.itemData.height; iy++)
+            {
+                inventoryItemSlot[toReturn.onGridPosX + ix, toReturn.onGridPosY + iy] = null;
+            }
+        }
         return toReturn;
 
+    }
+
+    bool PositionCheck(int posX, int posY)
+    {
+        if (posX < 0 || posY < 0)
+        {
+            return false;
+        }
+
+
+        if (posX >= gridSizeWidth || posY >= gridSizeHeight)
+        {
+            return false;
+        }
+
+
+        return true;
+    }
+
+
+    bool BoundaryCheck(int posX, int posY, int width, int height)
+    {
+        if (PositionCheck(posX, posY) == false)
+        {
+            return false;
+        }
+
+        posX += width -1;
+        posY += height -1;
+
+        if (PositionCheck(posX, posY) == false)
+        {
+            return false;
+        }
+
+
+        return true;
     }
 }

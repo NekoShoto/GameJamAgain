@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
-    
+    [HideInInspector]
     public ItemGrid selectedItemGrid;
 
     InventoryItem selectedItem;
+    InventoryItem overlapItem;
     RectTransform rectTransform;
 
 
@@ -65,8 +66,17 @@ public class InventoryController : MonoBehaviour
     {
 
         // Place item
-        selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y);
-        selectedItem = null;
+        bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
+        if (complete)
+        {
+            selectedItem = null;
+            if(overlapItem != null)
+            {
+                selectedItem = overlapItem;
+                rectTransform = selectedItem.GetComponent<RectTransform>();
+                overlapItem = null;
+            }
+        }   
     }
 
     private void PickUpItem(Vector2Int tileGridPosition)
