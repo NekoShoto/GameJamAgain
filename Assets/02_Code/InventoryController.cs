@@ -50,6 +50,10 @@ public class InventoryController : MonoBehaviour
 
     private void LeftMouseButtomPress()
     {
+        if (selectedItemGrid == null)
+        {
+            return;
+        }
         Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(Input.mousePosition);
         Debug.Log("Grid Position: " + tileGridPosition);
         if (selectedItem == null)

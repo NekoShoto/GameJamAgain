@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2335498575994794347}
   - component: {fileID: 879646298199287651}
   - component: {fileID: 2808188469461147605}
+  - component: {fileID: -1423465862559100890}
   m_Layer: 5
   m_Name: Item
-  m_TagString: Untagged
+  m_TagString: InGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,3 +90,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 0}
+  onGridPosX: 0
+  onGridPosY: 0
+--- !u!114 &-1423465862559100890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3838776368905614719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 592864ca77221e443b0e28a48750de70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlight: {fileID: 6494651829686006348, guid: 53d28f3dac89ff0449cd2b0f65ab3c7b, type: 3}
