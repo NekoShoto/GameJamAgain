@@ -104,4 +104,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592864ca77221e443b0e28a48750de70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: {fileID: 6494651829686006348, guid: 53d28f3dac89ff0449cd2b0f65ab3c7b, type: 3}
+  highlightObj: {fileID: 0}
+  locationObj: {fileID: 2140200505408838393, guid: 9cef93b784388704caa5d346bbef6c85, type: 3}

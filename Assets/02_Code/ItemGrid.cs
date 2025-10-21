@@ -1,5 +1,6 @@
 using System;
 using Unity.Mathematics;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class ItemGrid : MonoBehaviour
@@ -78,6 +79,8 @@ public class ItemGrid : MonoBehaviour
         position.y = -(posY * tileSizeHeight + tileSizeHeight * inventoryItem.itemData.height / 2);
 
         rectTransform.localPosition = position;
+
+       
 
         // Ensure all code paths return a value
         return true;

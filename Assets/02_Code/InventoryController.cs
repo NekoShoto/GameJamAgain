@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventoryController : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class InventoryController : MonoBehaviour
         bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
         if (complete)
         {
+            selectedItem.GetComponent<Image>().raycastTarget = true;
             selectedItem = null;
             if(overlapItem != null)
             {
@@ -87,11 +89,13 @@ public class InventoryController : MonoBehaviour
     {
         Debug.Log("im picking u up");
         //pickupItem
+        
         selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);
         if (selectedItem != null)
         {
             rectTransform = selectedItem.GetComponent<RectTransform>();
         }
+        selectedItem.GetComponent<Image>().raycastTarget = false;
     }
 
     private void ItemIconDrag()
