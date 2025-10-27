@@ -843,6 +843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedItemGrid: {fileID: 0}
+  handInventoryGrid: {fileID: 1698657422}
   items:
   - {fileID: 11400000, guid: 78bec276757dbb2428596ec34d829a22, type: 2}
   - {fileID: 11400000, guid: 591e31fa2fcf24243aacd84aa23d08e5, type: 2}

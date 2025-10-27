@@ -22,7 +22,7 @@ public class ItemSpawner : MonoBehaviour
     {
         while (true)  // keep running forever
         {
-            Debug.Log("5s started");
+            
             Spawn();                  // Run your function
             yield return new WaitForSeconds(5f);  // Wait 5 seconds before looping
         }

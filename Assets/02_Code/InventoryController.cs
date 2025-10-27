@@ -7,10 +7,12 @@ public class InventoryController : MonoBehaviour
 {
     [HideInInspector]
     public ItemGrid selectedItemGrid;
+    public ItemGrid handInventoryGrid;
 
     InventoryItem selectedItem;
     InventoryItem overlapItem;
     RectTransform rectTransform;
+    RectTransform rectTransform2;
 
 
     [SerializeField] List<ItemData> items;
@@ -31,37 +33,49 @@ public class InventoryController : MonoBehaviour
     public void CreateItem1()
     {
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        selectedItem = inventoryItem;
-
-        rectTransform = inventoryItem.GetComponent<RectTransform>();
-        rectTransform.SetParent(canvasTransform);
 
         int selectedItemID = 0;  // Always 0 to spawn the first item
         inventoryItem.Set(items[selectedItemID]);
+
+        CreateItem1V2(inventoryItem);
+    }
+
+    public bool CreateItem1V2(InventoryItem inventoryItem)
+    {
+
+        for (int x = 0; x < handInventoryGrid.GridSizeWidth; x++)
+        {
+            for (int y = 0; y < handInventoryGrid.GridSizeHeight; y++)
+            {
+                Debug.Log($"{handInventoryGrid.gameObject.name},{x},{y}");
+                if (handInventoryGrid.PlaceItem(inventoryItem, x , y, ref overlapItem))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void CreateItem2()
     {
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        selectedItem = inventoryItem;
-
-        rectTransform = inventoryItem.GetComponent<RectTransform>();
-        rectTransform.SetParent(canvasTransform);
+        
 
         int selectedItemID = 1;  // Always 0 to spawn the first item
         inventoryItem.Set(items[selectedItemID]);
+
+        CreateItem1V2(inventoryItem);
     }
 
     public void CreateItem3()
     {
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
-        selectedItem = inventoryItem;
-
-        rectTransform = inventoryItem.GetComponent<RectTransform>();
-        rectTransform.SetParent(canvasTransform);
-
+        
         int selectedItemID = 2;  // Always 0 to spawn the first item
         inventoryItem.Set(items[selectedItemID]);
+
+        CreateItem1V2(inventoryItem);
     }
 
     private void LeftMouseButtomPress()

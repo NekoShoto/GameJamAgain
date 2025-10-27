@@ -14,7 +14,8 @@ public class ItemGrid : MonoBehaviour
 
     [SerializeField] int gridSizeWidth = 20;
     [SerializeField] int gridSizeHeight = 10;
-
+    public int GridSizeWidth => gridSizeWidth;
+    public int GridSizeHeight => gridSizeWidth;
 
     public void Start()
     {
@@ -50,7 +51,7 @@ public class ItemGrid : MonoBehaviour
         if (BoundaryCheck(posX, posY, inventoryItem.itemData.width, inventoryItem.itemData.height) == false)
         {
             Debug.Log("Item is out of bounds");
-            return true;
+            return false;
         }
 
         if (OverlapCheck(posX, posY, inventoryItem.itemData.width, inventoryItem.itemData.height, ref overlapItem))
