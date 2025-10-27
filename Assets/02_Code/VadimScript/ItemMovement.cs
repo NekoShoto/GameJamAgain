@@ -3,28 +3,16 @@ using UnityEngine;
 
 public class ItemMovement : MonoBehaviour
 {
-    private Vector2 screenBounds;
-
-    void Start()
-    {
-
-    }
+    public float speed = 1f; // speed of movement, units per second
 
     void Update()
     {
-        if (transform.position.x < -1.2)
-        {
-            Debug.Log("Bat destroyed at position: " + transform.position);
-            Destroy(this.gameObject);
-        }
-    }
+        // Move object left at a constant speed every frame
+        transform.position += Vector3.left * speed * Time.deltaTime * 0.25f;
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
+        if (transform.position.x < -3f)
         {
-            Debug.Log("Bat collided with player at position: " + transform.position);
-            Destroy(this.gameObject);
+           Destroy(gameObject);
         }
     }
 }

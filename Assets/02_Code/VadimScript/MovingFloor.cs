@@ -21,7 +21,7 @@ public class MovingFloor : MonoBehaviour
             int.TryParse(digits, out score);
         }
 
-        Debug.Log("scoreText.text = " + (scoreText != null ? scoreText.text : "null") + ", score = " + score);
+        
 
         float speed = baseSpeed + score * speedIncreasePerPoint;
 

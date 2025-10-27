@@ -21,32 +21,47 @@ public class InventoryController : MonoBehaviour
     {
         ItemIconDrag();
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            CreateRandomItem();
-        }
-
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("blabla");
             LeftMouseButtomPress();
         }
-
-        
-
     }
 
-    private void CreateRandomItem()
+    public void CreateItem1()
     {
-      
         InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
         selectedItem = inventoryItem;
 
         rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(canvasTransform);
 
-        int selactedItemID = UnityEngine.Random.Range(0, items.Count);
-        inventoryItem.Set(items[selactedItemID]);
+        int selectedItemID = 0;  // Always 0 to spawn the first item
+        inventoryItem.Set(items[selectedItemID]);
+    }
+
+    public void CreateItem2()
+    {
+        InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+        selectedItem = inventoryItem;
+
+        rectTransform = inventoryItem.GetComponent<RectTransform>();
+        rectTransform.SetParent(canvasTransform);
+
+        int selectedItemID = 1;  // Always 0 to spawn the first item
+        inventoryItem.Set(items[selectedItemID]);
+    }
+
+    public void CreateItem3()
+    {
+        InventoryItem inventoryItem = Instantiate(itemPrefab).GetComponent<InventoryItem>();
+        selectedItem = inventoryItem;
+
+        rectTransform = inventoryItem.GetComponent<RectTransform>();
+        rectTransform.SetParent(canvasTransform);
+
+        int selectedItemID = 2;  // Always 0 to spawn the first item
+        inventoryItem.Set(items[selectedItemID]);
     }
 
     private void LeftMouseButtomPress()
