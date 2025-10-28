@@ -17,7 +17,7 @@ public class ItemGrid : MonoBehaviour
     public int GridSizeWidth => gridSizeWidth;
     public int GridSizeHeight => gridSizeWidth;
 
-    public void Start()
+    void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         Init(gridSizeWidth, gridSizeHeight);
@@ -62,6 +62,7 @@ public class ItemGrid : MonoBehaviour
 
         RectTransform rectTransform = inventoryItem.GetComponent<RectTransform>();
         rectTransform.SetParent(this.rectTransform);
+
         posY = Mathf.Abs(posY);
         Debug.Log("place up item at: " + posX + ", " + posY);
 

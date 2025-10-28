@@ -631,6 +631,10 @@ MonoBehaviour:
   score: 0
   pointsPerSecond: 1
   scoreText: {fileID: 1913973891}
+  scoreMedKit: 1
+  scoreBaseballBat: 3
+  scorePistol: 6
+  scoreItems: 0
 --- !u!4 &647831473
 Transform:
   m_ObjectHideFlags: 0
@@ -844,6 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedItemGrid: {fileID: 0}
   handInventoryGrid: {fileID: 1698657422}
+  bagInvetoryGrid: {fileID: 0}
   items:
   - {fileID: 11400000, guid: 78bec276757dbb2428596ec34d829a22, type: 2}
   - {fileID: 11400000, guid: 591e31fa2fcf24243aacd84aa23d08e5, type: 2}
@@ -991,7 +996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1300.2, y: 600}
+  m_AnchoredPosition: {x: 1263, y: 600}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1698657421

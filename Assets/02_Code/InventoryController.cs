@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,9 @@ public class InventoryController : MonoBehaviour
     [HideInInspector]
     public ItemGrid selectedItemGrid;
     public ItemGrid handInventoryGrid;
+    public ItemGrid bagInvetoryGrid;
+
+    GameObject bag;
 
     InventoryItem selectedItem;
     InventoryItem overlapItem;
@@ -37,10 +41,10 @@ public class InventoryController : MonoBehaviour
         int selectedItemID = 0;  // Always 0 to spawn the first item
         inventoryItem.Set(items[selectedItemID]);
 
-        CreateItem1V2(inventoryItem);
+        SpawnItemOnHandInv(inventoryItem);
     }
 
-    public bool CreateItem1V2(InventoryItem inventoryItem)
+    public bool SpawnItemOnHandInv(InventoryItem inventoryItem)
     {
 
         for (int x = 0; x < handInventoryGrid.GridSizeWidth; x++)
@@ -65,7 +69,7 @@ public class InventoryController : MonoBehaviour
         int selectedItemID = 1;  // Always 0 to spawn the first item
         inventoryItem.Set(items[selectedItemID]);
 
-        CreateItem1V2(inventoryItem);
+        SpawnItemOnHandInv(inventoryItem);
     }
 
     public void CreateItem3()
@@ -75,7 +79,7 @@ public class InventoryController : MonoBehaviour
         int selectedItemID = 2;  // Always 0 to spawn the first item
         inventoryItem.Set(items[selectedItemID]);
 
-        CreateItem1V2(inventoryItem);
+        SpawnItemOnHandInv(inventoryItem);
     }
 
     private void LeftMouseButtomPress()
@@ -111,7 +115,7 @@ public class InventoryController : MonoBehaviour
                 //rectTransform = selectedItem.GetComponent<RectTransform>();
                 overlapItem = null;
             }
-        }   
+        }
     }
 
     private void PickUpItem(Vector2Int tileGridPosition)
