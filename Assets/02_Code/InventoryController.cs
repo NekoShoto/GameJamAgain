@@ -11,7 +11,10 @@ public class InventoryController : MonoBehaviour
     public ItemGrid handInventoryGrid;
     public ItemGrid bagInvetoryGrid;
 
-    GameObject bag;
+
+    public bool shouldCheckCombo;
+    public ComboScore checkit;
+
 
     InventoryItem selectedItem;
     InventoryItem overlapItem;
@@ -29,7 +32,7 @@ public class InventoryController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("blabla");
+            //Debug.Log("blabla");
             LeftMouseButtomPress();
         }
     }
@@ -51,7 +54,7 @@ public class InventoryController : MonoBehaviour
         {
             for (int y = 0; y < handInventoryGrid.GridSizeHeight; y++)
             {
-                Debug.Log($"{handInventoryGrid.gameObject.name},{x},{y}");
+               // Debug.Log($"{handInventoryGrid.gameObject.name},{x},{y}");
                 if (handInventoryGrid.PlaceItem(inventoryItem, x , y, ref overlapItem))
                 {
                     return true;
@@ -89,7 +92,7 @@ public class InventoryController : MonoBehaviour
             return;
         }
         Vector2Int tileGridPosition = selectedItemGrid.GetTileGridPosition(Input.mousePosition);
-        Debug.Log("Grid Position: " + tileGridPosition);
+        //Debug.Log("Grid Position: " + tileGridPosition);
         if (selectedItem == null)
         {
             PickUpItem(tileGridPosition);
@@ -102,7 +105,7 @@ public class InventoryController : MonoBehaviour
 
     private void PlaceItem(Vector2Int tileGridPosition)
     {
-
+        
         // Place item
         bool complete = selectedItemGrid.PlaceItem(selectedItem, tileGridPosition.x, tileGridPosition.y, ref overlapItem);
         if (complete)
@@ -111,16 +114,19 @@ public class InventoryController : MonoBehaviour
             selectedItem = null;
             if(overlapItem != null)
             {
+                Debug.Log("placed");
                 //selectedItem = overlapItem;
                 //rectTransform = selectedItem.GetComponent<RectTransform>();
                 overlapItem = null;
             }
         }
+        if (shouldCheckCombo)
+            checkit.CheckItem();
     }
 
     private void PickUpItem(Vector2Int tileGridPosition)
     {
-        Debug.Log("im picking u up");
+        //Debug.Log("im picking u up");
         //pickupItem
         
         selectedItem = selectedItemGrid.PickUpItem(tileGridPosition.x, tileGridPosition.y);

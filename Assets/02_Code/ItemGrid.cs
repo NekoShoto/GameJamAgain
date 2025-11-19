@@ -2,20 +2,32 @@ using System;
 using Unity.Mathematics;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ItemGrid : MonoBehaviour
 {
     public const float tileSizeWidth = 32;
     public const float tileSizeHeight = 32;
 
-    InventoryItem[,] inventoryItemSlot;
+    public InventoryItem[,] inventoryItemSlot;
+   
 
     RectTransform rectTransform;
 
     [SerializeField] int gridSizeWidth = 20;
     [SerializeField] int gridSizeHeight = 10;
     public int GridSizeWidth => gridSizeWidth;
-    public int GridSizeHeight => gridSizeWidth;
+    public int GridSizeHeight => gridSizeHeight;
+
+    public bool shouldCheckCombo;
+
+
+    public ComboScore checkit;
+
+    private void Awake()
+    {
+        inventoryItemSlot = new InventoryItem[GridSizeWidth, GridSizeHeight];
+    }
 
     void Start()
     {
@@ -48,9 +60,10 @@ public class ItemGrid : MonoBehaviour
 
     public bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, ref InventoryItem overlapItem)
     {
+        
         if (BoundaryCheck(posX, posY, inventoryItem.itemData.width, inventoryItem.itemData.height) == false)
         {
-            Debug.Log("Item is out of bounds");
+            //Debug.Log("Item is out of bounds");
             return false;
         }
 
@@ -64,7 +77,7 @@ public class ItemGrid : MonoBehaviour
         rectTransform.SetParent(this.rectTransform);
 
         posY = Mathf.Abs(posY);
-        Debug.Log("place up item at: " + posX + ", " + posY);
+        //Debug.Log("place up item at: " + posX + ", " + posY);
 
         for (int x = 0; x < inventoryItem.itemData.width; x++)
         {
@@ -82,7 +95,8 @@ public class ItemGrid : MonoBehaviour
 
         rectTransform.localPosition = position;
 
-       
+        if(shouldCheckCombo)
+          checkit.CheckItem();
 
         // Ensure all code paths return a value
         return true;
@@ -99,12 +113,12 @@ public class ItemGrid : MonoBehaviour
                 {
                     if(overlapItem == null)
                     {
-                        Debug.Log("its overlaping false");
+                        //Debug.Log("its overlaping false");
                         overlapItem = inventoryItemSlot[posX + x, posY + y];
                     }
                     else if (overlapItem != inventoryItemSlot[posX + x, posY + y])
                     {
-                        Debug.Log("its overlaping true");
+                        //Debug.Log("its overlaping true");
                         
                     }
                     return true;
@@ -118,7 +132,7 @@ public class ItemGrid : MonoBehaviour
     public InventoryItem PickUpItem(int x, int y)
     {
         y = Mathf.Abs(y);
-        Debug.Log("Pick up item at: " + x + ", " + y);
+        //Debug.Log("Pick up item at: " + x + ", " + y);
         if (x < 0 || x >= gridSizeWidth || y < 0 || y >= gridSizeHeight)
             return null;
         InventoryItem toReturn = inventoryItemSlot[x, y];
@@ -135,6 +149,19 @@ public class ItemGrid : MonoBehaviour
         }
         return toReturn;
 
+    }
+    public void DestroyItem(InventoryItem item)
+    {
+        for (int x = 0; x < gridSizeWidth; x++)
+        {
+            for (int y = 0; y < gridSizeHeight; y++)
+            {
+                if (inventoryItemSlot[x, y] == item)
+                {
+                    inventoryItemSlot[x, y] = null;
+                }
+            }
+        }
     }
 
     bool PositionCheck(int posX, int posY)

@@ -16,7 +16,7 @@ public class Highlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("in" + this.name, this);
+        //Debug.Log("in" + this.name, this);
         GameObject highlightObj = GameObject.FindWithTag("Highlight");
         RectTransform rt = gameObject.GetComponent<RectTransform>();
         RectTransform rtH = highlightObj.gameObject.GetComponent<RectTransform>();
@@ -25,7 +25,7 @@ public class Highlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
         if (this.CompareTag("InGrid") == true)
         {
-            Debug.Log("it is what it is");
+            //Debug.Log("it is what it is");
 
             highlightObj.transform.position = this.gameObject.transform.position;
             highlightObj.SetActive(true);
@@ -35,7 +35,7 @@ public class Highlight : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("out");
+        //Debug.Log("out");
         GameObject highlightObj = GameObject.FindWithTag("Highlight");
         highlightObj.transform.position = new Vector2(-100, 0);
     }

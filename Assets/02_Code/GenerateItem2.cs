@@ -11,7 +11,7 @@ public class GenerateItem2 : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("GenerateItem2 Triggered");
+        //Debug.Log("GenerateItem2 Triggered");
         inventoryController.CreateItem2();
         Destroy(this.gameObject);
     }

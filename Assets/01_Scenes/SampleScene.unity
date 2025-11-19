@@ -609,6 +609,7 @@ GameObject:
   m_Component:
   - component: {fileID: 647831473}
   - component: {fileID: 647831472}
+  - component: {fileID: 647831474}
   m_Layer: 0
   m_Name: ScoreManager?
   m_TagString: Untagged
@@ -631,9 +632,9 @@ MonoBehaviour:
   score: 0
   pointsPerSecond: 1
   scoreText: {fileID: 1913973891}
-  scoreMedKit: 1
-  scoreBaseballBat: 3
-  scorePistol: 6
+  scoreMedKit: 100
+  scoreBaseballBat: 300
+  scorePistol: 600
   scoreItems: 0
 --- !u!4 &647831473
 Transform:
@@ -650,6 +651,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &647831474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647831471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de60ac6eec73e764f8797aa910e1529b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bagInventoryGrid: {fileID: 2115007179}
+  itemsToDestroy: []
 --- !u!1 &885526148
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,6 +864,8 @@ MonoBehaviour:
   selectedItemGrid: {fileID: 0}
   handInventoryGrid: {fileID: 1698657422}
   bagInvetoryGrid: {fileID: 0}
+  shouldCheckCombo: 0
+  checkit: {fileID: 0}
   items:
   - {fileID: 11400000, guid: 78bec276757dbb2428596ec34d829a22, type: 2}
   - {fileID: 11400000, guid: 591e31fa2fcf24243aacd84aa23d08e5, type: 2}
@@ -1025,6 +1042,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSizeWidth: 6
   gridSizeHeight: 3
+  shouldCheckCombo: 0
+  checkit: {fileID: 0}
 --- !u!114 &1698657423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +1694,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSizeWidth: 6
   gridSizeHeight: 9
+  shouldCheckCombo: 1
+  checkit: {fileID: 647831474}
 --- !u!114 &2115007180
 MonoBehaviour:
   m_ObjectHideFlags: 0
